@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using HRLeaveManagement.Application.Contracts.Infrastructure;
+using HRLeaveManagement.Application.Models;
 
 namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
 {
@@ -17,15 +19,18 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
         private readonly ILeaveRequestRepository _leaveRequestRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<CreateLeaveRequestDto> _validator;
+        private readonly IEmailSender _emailSender;
 
         public CreateLeaveRequestCommandHandler(
             ILeaveRequestRepository leaveTypeRepository, 
             IMapper mapper, 
-            IValidator<CreateLeaveRequestDto> validator)
+            IValidator<CreateLeaveRequestDto> validator,
+            IEmailSender emailSender)
         {
             _leaveRequestRepository = leaveTypeRepository;
             _mapper = mapper;
             _validator = validator;
+            _emailSender = emailSender;
         }
 
         public async Task<int> Handle(CreateLeaveRequestCommand request, CancellationToken cancellationToken)
@@ -38,6 +43,14 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
             var leaveRequest = _mapper.Map<Domain.LeaveRequest>(request.CreateLeaveRequestDto);
             leaveRequest = await _leaveRequestRepository.AddAsync(leaveRequest);
 
+            try
+            {
+                await _emailSender.SendEmail(new Email { Body = "", Subject = "", To = "" });
+            }
+            catch (Exception)
+            {
+            }
+            
             return leaveRequest.Id;
         }
     }
