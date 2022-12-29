@@ -2,7 +2,7 @@
 using HRLeaveManagement.Application.DTOs.LeaveAllocation;
 using HRLeaveManagement.Application.Features.LeaveAllocation.Handlers.Common;
 using HRLeaveManagement.Application.Features.LeaveAllocation.Requests.Queries;
-using HRLeaveManagement.Application.Persistence.Contracts;
+using HRLeaveManagement.Application.Contracts.Persistence;
 using MediatR;
 using System;
 using System.Collections.Generic;
