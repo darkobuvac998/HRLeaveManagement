@@ -1,4 +1,7 @@
 ﻿using HRLeaveManagement.Application.Contracts.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HRLeaveManagement.Persistance.Repositories
@@ -47,6 +50,8 @@ namespace HRLeaveManagement.Persistance.Repositories
                 return _leaveRequest;
             }
         }
+
+        public async Task<IReadOnlyCollection<T>> ExecuteQueryAsync<T>(IQueryable<T> query) => await query.ToListAsync();
 
         public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
     }

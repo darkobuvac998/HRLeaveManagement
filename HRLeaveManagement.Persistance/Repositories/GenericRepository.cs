@@ -11,11 +11,25 @@ namespace HRLeaveManagement.Persistance.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly LeaveManagementDbContext _dbContext;
+        private DbSet<T> _dbSet;
 
         public GenericRepository(LeaveManagementDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
+        public DbSet<T> DbSet
+        {
+            get
+            {
+                if (_dbSet == null)
+                    _dbSet = _dbContext.Set<T>();
+
+                return _dbSet;
+            }
+        }
+
+        public DbSet<T> GetQueryableEntity() => DbSet;
 
         public async Task<T> AddAsync(T entity)
         {
