@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace HRLeaveManagement.Application.Contracts.Persistence
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<bool> Exists(int id);
+        DbSet<T> GetQueryableEntity();
     }
 }

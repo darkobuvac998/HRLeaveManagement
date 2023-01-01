@@ -4,6 +4,8 @@ using HRLeaveManagement.Application.Features.LeaveAllocation.Requests.Commands;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRLeaveManagement.Application.Features.LeaveAllocation.Handlers.Commands
 {
@@ -23,6 +25,16 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Handlers.Comman
                 throw new NotFoundException(nameof(LeaveAllocation), request.Id);
 
             await _repository.LeaveAllocation.DeleteAsync(leaveAllocation);
+
+            //var query = from lt in _repository.LeaveType.GetQueryableEntity()
+            //            from lr in _repository.LeaveRequest.GetQueryableEntity().Where(x => x.LeaveTypeId == lt.Id)
+            //            select new
+            //            {
+            //                LeaveTypeName = lt.Name,
+            //                CreatedAt = lr.DateCreated
+            //            };
+
+            //var result = await _repository.ExecuteQueryAsync(query);
 
             return Unit.Value;
         }

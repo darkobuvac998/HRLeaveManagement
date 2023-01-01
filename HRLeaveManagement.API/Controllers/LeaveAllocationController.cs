@@ -46,7 +46,7 @@ namespace HRLeaveManagement.API.Controllers
         public async Task<ActionResult> UpdateLeaveAllocationAsync([FromBody] UpdateLeaveAllocationDto updateLeaveAllocationDto)
         {
             var command = new UpdateLeaveAllocationCommand { UpdateLeaveAllocationDto = updateLeaveAllocationDto };
-            var response = await _mediator.Send(command);
+            _ = await _mediator.Send(command);
 
             return NoContent();
         }
