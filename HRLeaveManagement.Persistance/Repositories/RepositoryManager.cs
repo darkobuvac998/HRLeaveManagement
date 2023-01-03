@@ -51,7 +51,8 @@ namespace HRLeaveManagement.Persistance.Repositories
             }
         }
 
-        public async Task<IReadOnlyCollection<T>> ExecuteQueryAsync<T>(IQueryable<T> query) => await query.ToListAsync();
+        public async Task<IReadOnlyCollection<T>> ExecuteQueryAsync<T>(IQueryable<T> query) =>
+            await query.ToListAsync();
 
         public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
     }

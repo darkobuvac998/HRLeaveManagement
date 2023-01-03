@@ -5,11 +5,11 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace HRLeaveManagement.Application.Features.LeaveAllocation.Handlers.Commands
 {
-    public class DeleteLeaveAllocationCommandHandler : IRequestHandler<DeleteLeaveAllocationCommand, Unit>
+    public class DeleteLeaveAllocationCommandHandler
+        : IRequestHandler<DeleteLeaveAllocationCommand, Unit>
     {
         private readonly IRepositoryManager _repository;
 
@@ -17,7 +17,11 @@ namespace HRLeaveManagement.Application.Features.LeaveAllocation.Handlers.Comman
         {
             _repository = repository;
         }
-        public async Task<Unit> Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
+
+        public async Task<Unit> Handle(
+            DeleteLeaveAllocationCommand request,
+            CancellationToken cancellationToken
+        )
         {
             var leaveAllocation = await _repository.LeaveAllocation.GetAsync(request.Id);
 

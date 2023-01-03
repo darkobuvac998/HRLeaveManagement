@@ -11,10 +11,8 @@ namespace HRLeaveManagement.Persistance
 {
     public class LeaveManagementDbContext : DbContext
     {
-        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options) : base(options)
-        {
-                
-        }
+        public LeaveManagementDbContext(DbContextOptions<LeaveManagementDbContext> options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +27,7 @@ namespace HRLeaveManagement.Persistance
             {
                 entry.Entity.LastModifiedDate = DateTime.Now;
 
-                if(entry.State == EntityState.Added)
+                if (entry.State == EntityState.Added)
                 {
                     entry.Entity.DateCreated = DateTime.Now;
                 }
@@ -41,6 +39,5 @@ namespace HRLeaveManagement.Persistance
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
-
     }
 }

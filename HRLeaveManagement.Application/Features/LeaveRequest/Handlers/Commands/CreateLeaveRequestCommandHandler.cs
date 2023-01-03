@@ -22,10 +22,11 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
         private readonly IEmailSender _emailSender;
 
         public CreateLeaveRequestCommandHandler(
-            ILeaveRequestRepository leaveTypeRepository, 
-            IMapper mapper, 
+            ILeaveRequestRepository leaveTypeRepository,
+            IMapper mapper,
             IValidator<CreateLeaveRequestDto> validator,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+        )
         {
             _leaveRequestRepository = leaveTypeRepository;
             _mapper = mapper;
@@ -33,7 +34,10 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
             _emailSender = emailSender;
         }
 
-        public async Task<int> Handle(CreateLeaveRequestCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(
+            CreateLeaveRequestCommand request,
+            CancellationToken cancellationToken
+        )
         {
             var validationResult = await _validator.ValidateAsync(request.CreateLeaveRequestDto);
 
@@ -45,12 +49,17 @@ namespace HRLeaveManagement.Application.Features.LeaveRequest.Handlers.Commands
 
             try
             {
-                await _emailSender.SendEmail(new Email { Body = "", Subject = "", To = "" });
+                await _emailSender.SendEmail(
+                    new Email
+                    {
+                        Body = "",
+                        Subject = "",
+                        To = ""
+                    }
+                );
             }
-            catch (Exception)
-            {
-            }
-            
+            catch (Exception) { }
+
             return leaveRequest.Id;
         }
     }
