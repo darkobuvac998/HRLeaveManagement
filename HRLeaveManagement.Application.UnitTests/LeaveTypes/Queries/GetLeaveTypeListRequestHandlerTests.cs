@@ -15,7 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace HRLeaveManagement.Application.UnitTests.LeaveTypes
+namespace HRLeaveManagement.Application.UnitTests.LeaveTypes.Queries
 {
     public class GetLeaveTypeListRequestHandlerTests
     {
