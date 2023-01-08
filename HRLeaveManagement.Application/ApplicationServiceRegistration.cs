@@ -2,6 +2,8 @@
 using FluentValidation;
 using HRLeaveManagement.Application.DTOs.LeaveRequest;
 using HRLeaveManagement.Application.DTOs.LeaveRequest.Validators;
+using HRLeaveManagement.Application.DTOs.LeaveType;
+using HRLeaveManagement.Application.DTOs.LeaveType.Validators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,13 +15,17 @@ namespace HRLeaveManagement.Application
 {
     public static class ApplicationServiceRegistration
     {
-        public static IServiceCollection ConfigureApplicationServices(this IServiceCollection services)
+        public static IServiceCollection ConfigureApplicationServices(
+            this IServiceCollection services
+        )
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IValidator<CreateLeaveRequestDto>, CreateLeaveRequestDtoValidator>();
             services.AddScoped<IValidator<UpdateLeaveRequestDto>, UpdateLeaveRequestDtoValidator>();
+
+            services.AddScoped<IValidator<CreateLeaveTypeDto>, CreateLeaveTypeValidator>();
 
             return services;
         }
