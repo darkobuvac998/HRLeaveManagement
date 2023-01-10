@@ -1,6 +1,7 @@
 ﻿using HRLeaveManagement.Application.DTOs.LeaveType;
 using HRLeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
 using HRLeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
+using HRLeaveManagement.Application.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -34,11 +35,13 @@ namespace HRLeaveManagement.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> CreateLeaveTypeAsync([FromBody] CreateLeaveTypeDto createLeaveTypeDto)
+        public async Task<ActionResult<BaseCommandResponse>> CreateLeaveTypeAsync(
+            [FromBody] CreateLeaveTypeDto createLeaveTypeDto
+        )
         {
             var command = new CreateLeaveTypeCommand { LeaveTypeDto = createLeaveTypeDto };
             var result = await _mediator.Send(command);
-            return Ok(result);  
+            return Ok(result);
         }
 
         [HttpPut]

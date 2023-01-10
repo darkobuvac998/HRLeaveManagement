@@ -1,5 +1,6 @@
 using HRLeaveManagement.MVC.Contracts;
 using HRLeaveManagement.MVC.Services;
+using HRLeaveManagement.MVC.Services.Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace HRLeaveManagement.MVC
             );
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddScoped<ILeaveTypeService, LeaveTypeService>();
 
             services.AddSingleton<ILocalStorageService, LocalStorageService>();
 

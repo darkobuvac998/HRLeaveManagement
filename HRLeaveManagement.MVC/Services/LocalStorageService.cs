@@ -33,12 +33,12 @@ namespace HRLeaveManagement.MVC.Services
 
         public bool Exists(string key)
         {
-           return _storage.Exists(key);
+            return _storage.Exists(key);
         }
 
         public T GetStorageValue<T>(string key)
         {
-           return _storage.Get<T>(key):
+            return _storage.Get<T>(key);
         }
 
         public void SetStorageValue<T>(string key, T value)
