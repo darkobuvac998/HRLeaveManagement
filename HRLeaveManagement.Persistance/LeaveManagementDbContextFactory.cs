@@ -5,19 +5,20 @@ using System.IO;
 
 namespace HRLeaveManagement.Persistance
 {
-    public class LeaveManagementDbContextFactory : IDesignTimeDbContextFactory<LeaveManagementDbContext>
+    public class LeaveManagementDbContextFactory
+        : IDesignTimeDbContextFactory<LeaveManagementDbContext>
     {
         public LeaveManagementDbContext CreateDbContext(string[] args)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.Development.json")
                 .Build();
 
             var builder = new DbContextOptionsBuilder<LeaveManagementDbContext>();
             var connectionString = configuration.GetConnectionString("Db");
 
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
 
             return new LeaveManagementDbContext(builder.Options);
         }

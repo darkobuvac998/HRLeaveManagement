@@ -9,11 +9,17 @@ namespace HRLeaveManagement.Persistance
     public static class PersistenceServiceRegistration
     {
         public static IServiceCollection ConfigurePersistanceServices(
-            this IServiceCollection services, 
-            IConfiguration configuration)
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
         {
-            services.AddDbContext<LeaveManagementDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("Db")));
+            services.AddDbContext<LeaveManagementDbContext>(
+                options =>
+                    options.UseNpgsql(
+                        configuration.GetConnectionString("Db"),
+                        builder => builder.MigrationsAssembly("HRLeaveManagement.API")
+                    )
+            );
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();

@@ -23,14 +23,45 @@ namespace HRLeaveManagement.MVC.Services
             _mapper = mapper;
         }
 
-        public Task<Response<int>> CreateLeaveType(CreateLeaveTypeViewModel leaveType)
+        public async Task<Response<int>> CreateLeaveType(CreateLeaveTypeViewModel leaveType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = new Response<int>();
+                var leaveTypeDto = _mapper.Map<CreateLeaveTypeDto>(leaveType);
+                var apiResponse = await _httpClient.LeaveTypesPOSTAsync(leaveTypeDto);
+                if (apiResponse.Success)
+                {
+                    response.Data = apiResponse.Id;
+                    response.Success = apiResponse.Success;
+                }
+                else
+                {
+                    foreach (var error in apiResponse.Errors)
+                    {
+                        response.ValidationErrors += error + Environment.NewLine;
+                    }
+                }
+
+                return response;
+            }
+            catch (ApiException ex)
+            {
+                return ConverApiExceptions<int>(ex);
+            }
         }
 
-        public Task<Response<int>> DeleteLeaveType(LeaveTypeViewModel leaveType)
+        public async Task<Response<int>> DeleteLeaveType(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _httpClient.IdDELETE2Async(id);
+                return new Response<int>() { Success = true };
+            }
+            catch (ApiException ex)
+            {
+                return ConverApiExceptions<int>(ex);
+            }
         }
 
         public async Task<LeaveTypeViewModel> GetLeaveTypeDetails(int id)
