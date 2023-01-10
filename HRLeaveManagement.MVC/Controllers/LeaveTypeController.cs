@@ -19,7 +19,7 @@ namespace HRLeaveManagement.MVC.Controllers
         }
 
         // GET: LeaveTypeController
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index()
         {
             var model = await _leaveTypeService.GetLeaveTypes();
             return View(model);
@@ -47,7 +47,7 @@ namespace HRLeaveManagement.MVC.Controllers
                 var response = await _leaveTypeService.CreateLeaveType(createLeaveTypeVM);
                 if (response.Success)
                 {
-                    return RedirectToAction(nameof(IndexAsync));
+                    return RedirectToAction(nameof(Index));
                 }
                 ModelState.AddModelError("", response.ValidationErrors);
             }
@@ -72,7 +72,7 @@ namespace HRLeaveManagement.MVC.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -93,7 +93,7 @@ namespace HRLeaveManagement.MVC.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(IndexAsync));
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
