@@ -1,3 +1,4 @@
+using HRLeaveManagement.API.Middleware;
 using HRLeaveManagement.Application;
 using HRLeaveManagement.Identity;
 using HRLeaveManagement.Infrastructure;
@@ -53,6 +54,8 @@ namespace HRLeaveManagement.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMiddleware<ExcpetionMiddleware>();
 
             app.UseAuthentication();
 
