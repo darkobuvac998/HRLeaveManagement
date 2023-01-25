@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
+    networks:
+      - hrleavemanagement
 
   pgadmin:
     container_name: pgadmin
@@ -26,7 +28,13 @@ services:
       - pgadmin:/var/lib/pgadmin
     depends_on:
       - postgres
+    networks:
+      - hrleavemanagement
 
 volumes:
   postgres:
   pgadmin:
+
+networks:
+  hrleavemanagement:
+    driver: bridge
